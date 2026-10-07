@@ -258,11 +258,12 @@ a { color: inherit; }
 .quote h2 { font-size: clamp(2.2rem, 4.8vw, 3.9rem); margin: .8rem 0 1.1rem; }
 .quote h2 span { display: block; }
 .quote .intro { color: var(--muted); max-width: 34rem; margin-bottom: 2.2rem; }
-.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; }
+.field { min-width: 0; }
 .fgrid .full { grid-column: 1 / -1; }
 .field label { display: block; font-size: .64rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(242,237,216,.62); margin-bottom: .45rem; }
 .field input, .field select, .field textarea { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(242,237,216,.18); color: var(--cream); font: inherit; font-size: .95rem; padding: .85rem .95rem; border-radius: 0; outline: none; transition: border-color .2s, background .2s; -webkit-appearance: none; appearance: none; }
-.field input::placeholder, .field textarea::placeholder { color: rgba(242,237,216,.35); }
+.field input::placeholder, .field textarea::placeholder { color: rgba(242,237,216,.65); opacity: 1; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); background: rgba(255,255,255,.07); }
 .field select { background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%); background-position: calc(100% - 20px) 55%, calc(100% - 14px) 55%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 2.4rem; }
 .field select option { background: var(--n8); color: var(--cream); }
@@ -317,15 +318,17 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
 .ft-bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: .6rem 2rem; justify-content: space-between; font-size: .74rem; color: rgba(242,237,216,.45); }
 
 /* ============ APPLY DIALOG ============ */
-.apply { width: min(760px, calc(100% - 24px)); max-height: calc(100dvh - 24px); margin: auto; border: 1px solid var(--line); background: var(--n8); color: var(--cream); padding: 0; }
+.apply { --apply-pad: clamp(12px, 4vw, 1.6rem); width: min(760px, calc(100% - 24px)); max-height: calc(100dvh - 24px); margin: auto; border: 1px solid var(--line); background: var(--n8); color: var(--cream); padding: 0; }
 .apply::backdrop { background: rgba(5,11,21,.8); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-.apply-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.6rem 1.6rem 0; }
+.apply-head { display: flex; justify-content: space-between; align-items: flex-start; gap: clamp(8px, 2.5vw, 1rem); padding: var(--apply-pad) var(--apply-pad) 0; }
+.apply-head > div { min-width: 0; overflow-wrap: anywhere; }
 .apply-head h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin-top: .5rem; }
 .apply-head p { color: var(--muted); font-size: .88rem; margin-top: .5rem; }
-.apply-head p a { color: var(--gold); }
+.apply-head p a { color: var(--gold); overflow-wrap: anywhere; }
 .x { background: none; border: 1px solid var(--line); color: var(--cream); width: 44px; height: 44px; flex-shrink: 0; cursor: pointer; font-size: 1.3rem; line-height: 1; transition: border-color .2s, color .2s; }
 .x:hover { border-color: var(--gold); color: var(--gold); }
-.apply form { padding: 1.4rem 1.6rem 1.8rem; }
+.apply form { padding: 1.4rem var(--apply-pad) 1.8rem; }
+.apply .btn { min-width: 0; max-width: 100%; padding-inline: var(--apply-pad); overflow-wrap: anywhere; }
 
 /* ============ REVEAL ============ */
 .js .rv { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
@@ -383,7 +386,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
   .spec, .spec + .spec { padding: 1.1rem 0; border-left: 0; display: grid; grid-template-columns: 44px 1fr; column-gap: .9rem; align-items: start; }
   .spec + .spec { border-top: 1px solid var(--line); }
   .spec svg { grid-row: span 2; margin: 0; }
-  .fgrid { grid-template-columns: 1fr; }
+  .fgrid { grid-template-columns: minmax(0, 1fr); }
   .hero-inner { padding-bottom: 3.5rem; }
 }
 @media (orientation: landscape) and (max-height: 540px) {
@@ -420,6 +423,9 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
     <a href="#home" class="logo" aria-label="RichieRich Transportation LLC — home">
       <img src="images/logo-wordmark.png" alt="RichieRich Transportation LLC" width="1000" height="119" />
     </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="nav" id="nav" aria-label="Main">
       <ul>
         <li><a href="#about">About</a></li>
@@ -431,9 +437,6 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
       </ul>
       <a href="#quote" class="btn btn-gold">Get a Quote <svg class="arr"><use href="#arr"/></svg></a>
     </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
@@ -701,7 +704,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
       <h3 class="display" id="applyTitle">Apply to run with us</h3>
       <p>Takes about two minutes. Richard reviews every application personally. Attach your résumé below, or send it to <a href="mailto:richierichtransportationllc@gmail.com">richierichtransportationllc@gmail.com</a>.</p>
     </div>
-    <button type="button" class="x" data-close-apply aria-label="Close application">×</button>
+    <button type="button" class="x" data-close-apply aria-label="Close application" autofocus>×</button>
   </div>
   <form data-fs method="POST" enctype="multipart/form-data" action="https://formsubmit.co/c03892670506c031e28539ce68d933c4">
     <input type="hidden" name="_subject" value="New Driver Application — RichieRich Website" />

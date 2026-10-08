@@ -28,6 +28,12 @@ menuBtn.addEventListener('click', () => {
   menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 });
 document.querySelectorAll('#nav a').forEach(a => a.addEventListener('click', closeMenu));
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || !hdr.classList.contains('open') || document.querySelector('dialog[open]')) return;
+  closeMenu();
+  menuBtn.focus();
+  e.preventDefault();
+});
 window.addEventListener('resize', () => { if (window.innerWidth > 1120) closeMenu(); });
 
 /* Scroll motion: hero parallax + fleet zoom */
@@ -217,7 +223,26 @@ function formatPhone(value) {
   return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
 }
 document.querySelectorAll('input[type="tel"]').forEach(inp => {
-  inp.addEventListener('input', () => { inp.value = formatPhone(inp.value); });
+  inp.addEventListener('input', () => {
+    const raw = inp.value;
+    const digits = raw.replace(/\D/g, '');
+    const prefix = digits.length > 10 && digits[0] === '1' ? 1 : 0;
+    const start = Math.max(0, raw.slice(0, inp.selectionStart).replace(/\D/g, '').length - prefix);
+    const end = Math.max(0, raw.slice(0, inp.selectionEnd).replace(/\D/g, '').length - prefix);
+    const direction = inp.selectionDirection;
+    const formatted = formatPhone(raw);
+    if (formatted === raw) return;
+    inp.value = formatted;
+    const position = count => {
+      if (count === 0) return 0;
+      let seen = 0;
+      for (let i = 0; i < formatted.length; i++) {
+        if (/\d/.test(formatted[i]) && ++seen === count) return i + 1;
+      }
+      return formatted.length;
+    };
+    inp.setSelectionRange(position(start), position(end), direction);
+  });
 });
 
 // Coming back from Back after sending: re-enable the buttons.

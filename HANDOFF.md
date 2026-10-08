@@ -78,9 +78,11 @@ The copyright year updates itself every year.
   chains and binders).
 - The **Fleet** section and the **"You call Richard"** section use our **real**
   trucks. Keep those real.
-- Six other photo slots use stand-ins until AI images are made. See
-  **`IMAGE-PROMPTS.md`** for a ready-to-paste prompt and exact filename for
-  each slot. Send the images to Claude and they'll be compressed and swapped in.
+- The other six photo slots use AI images with no logos, lettering or people:
+  the top image, the four service cards and the Houston skyline. One is still
+  waiting: **"03 Across Texas"** (`service-regional.jpg`) uses an early
+  sunset-road image. See **`IMAGE-PROMPTS.md`** for its prompt. Send the new
+  image to Claude and it'll be compressed and swapped in.
 
 ---
 
@@ -170,7 +172,8 @@ Turn on **2-step verification** for all of them and use a unique password:
 ```
 index.html         ← the website's text, layout, forms and Texas map
 site.js            ← menu, scroll motion, attachments, phone formatting
-images/            ← logo, truck photos, photo-slot images
+images/            ← logo, truck photos, photo-slot images, browser icons
+404.html           ← "page not found" screen for mistyped addresses
 IMAGE-PROMPTS.md   ← AI image prompts for each photo slot
 robots.txt         ← helps Google find the site
 sitemap.xml        ← helps Google index the site

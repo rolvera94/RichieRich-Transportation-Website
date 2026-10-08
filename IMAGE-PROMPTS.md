@@ -1,7 +1,8 @@
 # Website photos: AI image prompts
 
-The website has **6 photo slots**. Each one uses a stand-in cropped from our real
-photos until you replace it. To replace one, generate the image, save it with the
+The website has **6 photo slots**. Five have their AI image. **Still to do:
+#4 `service-regional.jpg`** ("03 Across Texas"), which uses an early
+sunset-road image. To replace any slot, generate the image, save it with the
 **exact filename** below, and send it to Claude (or drop it in the `images/`
 folder). Claude will resize and compress it so the site stays fast.
 
@@ -15,8 +16,8 @@ folder). Claude will resize and compress it so the site stays fast.
   RR mark, and the website adds it itself.
 - **No people**, or at most a small figure far away with no face visible.
 - **Wide (landscape)**, at least **2400 px wide** for the hero, 1600 px for the rest.
-- Photo-realistic, not illustrated. Warm golden-hour or dusk light, deep blue
-  shadows (it matches the site's navy and gold).
+- Photo-realistic, not illustrated. Vary the time of day across the set
+  (midday, morning, dusk) so the page doesn't read as all sunsets.
 - Texas setting: Houston-area highways, East Texas pines, big sky. No cowboy
   clichés.
 

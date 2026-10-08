@@ -153,6 +153,8 @@ function setupDrop(field) {
         if (!okType(raw)) { showErr('"' + raw.name + '" isn\'t a supported file type.'); continue; }
         if (state.files.length >= maxFiles) { showErr('You can attach up to ' + maxFiles + ' files.'); break; }
         const f = await shrinkImage(raw);
+        // Other selections may finish compressing while this file is awaiting decoding.
+        if (state.files.length >= maxFiles) { showErr('You can attach up to ' + maxFiles + ' files.'); break; }
         if (total() + f.size > MAX_BYTES) { showErr('"' + f.name + '" would go over the 10 MB total. Try a smaller file.'); continue; }
         state.files.push(f);
         render();
@@ -223,6 +225,20 @@ function formatPhone(value) {
   return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
 }
 document.querySelectorAll('input[type="tel"]').forEach(inp => {
+  inp.addEventListener('beforeinput', e => {
+    const forward = e.inputType === 'deleteContentForward';
+    const backward = e.inputType === 'deleteContentBackward';
+    const caret = inp.selectionStart;
+    if ((!forward && !backward) || !e.cancelable || caret !== inp.selectionEnd) return;
+    let digit = forward ? caret : caret - 1;
+    if (digit < 0 || digit >= inp.value.length || /\d/.test(inp.value[digit])) return;
+    while (digit >= 0 && digit < inp.value.length && !/\d/.test(inp.value[digit])) digit += forward ? 1 : -1;
+    if (digit < 0 || digit >= inp.value.length) return;
+    // Delete the adjacent digit together with the punctuation, including on mobile keyboards.
+    e.preventDefault();
+    inp.setRangeText('', forward ? caret : digit, forward ? digit + 1 : caret, 'start');
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  });
   inp.addEventListener('input', () => {
     const raw = inp.value;
     const digits = raw.replace(/\D/g, '');

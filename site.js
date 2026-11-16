@@ -323,7 +323,8 @@ document.querySelectorAll('input[type="tel"]').forEach(inp => {
     d.setCustomValidity(d.value && d.value < d.min ? 'Please pick today or a later date.' : '');
   };
   check();
-  ['focus', 'input', 'change'].forEach(ev => d.addEventListener(ev, check));
+  // Capture phase: re-check before the inline-message handler decides whether to clear it.
+  ['focus', 'input', 'change'].forEach(ev => d.addEventListener(ev, check, true));
   // Re-check just before the browser validates the form (Enter in a field also "clicks" Send).
   const send = d.form && d.form.querySelector('button[type="submit"]');
   if (send) send.addEventListener('click', check);

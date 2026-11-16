@@ -371,6 +371,11 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
 .js .rv { animation: rv-show 0s 4s forwards; }
 .js.rv-on .rv { animation: none; }
 @keyframes rv-show { to { opacity: 1; transform: none; } }
+/* Same safety net for the story timeline and the Texas map, which site.js reveals with .on */
+.tl-item, .tx-counties, .pin { animation: rv-show 0s 4s forwards; }
+.tx-shape { animation: tx-show 0s 4s forwards; }
+.rv-on .tl-item, .rv-on .tx-counties, .rv-on .pin, .rv-on .tx-shape { animation: none; }
+@keyframes tx-show { to { stroke-dashoffset: 0; fill-opacity: 1; } }
 /* Hero: pure-CSS fade-up, so the headline and button never wait for site.js */
 .hero-in { animation: hero-in .9s cubic-bezier(.2,.7,.2,1) both; }
 .hero-in[data-d="1"] { animation-delay: .1s; }
@@ -432,6 +437,12 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
   .fgrid { grid-template-columns: minmax(0, 1fr); }
   .hero-inner { padding-bottom: 3.5rem; }
   /* Phone: the text spans the full width, so darken behind it (truck headlights sit under the lede). */
+  .hero::before { background:
+    linear-gradient(90deg, rgba(7,15,28,.9) 0%, rgba(7,15,28,.8) 50%, rgba(7,15,28,.72) 100%),
+    linear-gradient(180deg, rgba(7,15,28,.6) 0%, transparent 24%, transparent 68%, rgba(7,15,28,.95) 100%); }
+}
+/* Portrait tablets (601-820 px) also have the lede over the headlights: same darker overlay as phones. */
+@media (min-width: 601px) and (max-width: 820px) {
   .hero::before { background:
     linear-gradient(90deg, rgba(7,15,28,.9) 0%, rgba(7,15,28,.8) 50%, rgba(7,15,28,.72) 100%),
     linear-gradient(180deg, rgba(7,15,28,.6) 0%, transparent 24%, transparent 68%, rgba(7,15,28,.95) 100%); }

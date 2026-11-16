@@ -100,6 +100,11 @@ a { color: inherit; }
 .nudge .arr { animation: nudge 2.6s ease-in-out infinite; }
 @keyframes nudge { 0%, 72%, 100% { transform: none; } 82% { transform: translateX(6px); } 92% { transform: none; } }
 
+/* Skip link: hidden until a keyboard user tabs to it */
+.skip { position: fixed; top: .75rem; left: .75rem; z-index: 100; padding: .85rem 1.2rem; background: var(--gold); color: var(--n9); font-weight: 800; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; transform: translateY(-200%); }
+.skip:focus { transform: none; outline: 2px solid var(--cream); outline-offset: 3px; }
+main:focus { outline: none; }
+
 /* ============ HEADER ============ */
 .hdr { position: fixed; inset: 0 0 auto; z-index: 50; height: var(--hdr); transition: background .3s, box-shadow .3s; }
 .hdr.solid, .hdr.open { background: rgba(10,22,40,.95); box-shadow: 0 1px 0 var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
@@ -450,6 +455,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 
 <!-- Shared icon: Texas outline (used in the trust strip) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -482,7 +488,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 <!-- ============ 01 HERO ============ -->
 <section class="hero" id="home">
   <div class="hero-media"><img id="heroImg" src="images/hero.jpg" alt="Flatbed truck loaded with steel" fetchpriority="high" /></div>

@@ -310,6 +310,25 @@ document.querySelectorAll('input[type="tel"]').forEach(inp => {
   });
 });
 
+// Preferred date: no days that already passed (the visitor's own today, not UTC).
+(function () {
+  const d = document.getElementById('q-date');
+  if (!d) return;
+  const today = () => {
+    const t = new Date();
+    return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+  };
+  const check = () => {
+    d.min = today(); // refreshed each time, so a page left open overnight stays right
+    d.setCustomValidity(d.value && d.value < d.min ? 'Please pick today or a later date.' : '');
+  };
+  check();
+  ['focus', 'input', 'change'].forEach(ev => d.addEventListener(ev, check));
+  // Re-check just before the browser validates the form (Enter in a field also "clicks" Send).
+  const send = d.form && d.form.querySelector('button[type="submit"]');
+  if (send) send.addEventListener('click', check);
+})();
+
 // Coming back from Back after sending: re-enable the buttons.
 window.addEventListener('pageshow', e => {
   if (!e.persisted) return;

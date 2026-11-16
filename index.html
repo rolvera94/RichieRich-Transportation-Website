@@ -406,12 +406,19 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
   .spec svg { grid-row: span 2; margin: 0; }
   .fgrid { grid-template-columns: minmax(0, 1fr); }
   .hero-inner { padding-bottom: 3.5rem; }
+  /* Phone: the text spans the full width, so darken behind it (truck headlights sit under the lede). */
+  .hero::before { background:
+    linear-gradient(90deg, rgba(7,15,28,.9) 0%, rgba(7,15,28,.8) 50%, rgba(7,15,28,.72) 100%),
+    linear-gradient(180deg, rgba(7,15,28,.6) 0%, transparent 24%, transparent 68%, rgba(7,15,28,.95) 100%); }
 }
 @media (orientation: landscape) and (max-height: 540px) {
   .hero { min-height: 0; }
   .hero-inner { padding-top: calc(var(--hdr) + 1.4rem); padding-bottom: 2.2rem; }
   .hero h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); max-width: none; margin: .3rem 0 .8rem; }
   .lede { font-size: .95rem; max-width: 40rem; margin-bottom: 1.2rem; }
+  .hero::before { background:
+    linear-gradient(90deg, rgba(7,15,28,.92) 0%, rgba(7,15,28,.84) 55%, rgba(7,15,28,.74) 85%, rgba(7,15,28,.5) 100%),
+    linear-gradient(180deg, rgba(7,15,28,.6) 0%, transparent 24%, transparent 68%, rgba(7,15,28,.95) 100%); }
 }
 @media (max-width: 380px) {
   .hero h1 { font-size: 2.1rem; }

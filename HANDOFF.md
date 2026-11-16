@@ -10,7 +10,12 @@ into day-to-day. This guide covers the few things you need to know.
 
 Both forms are sent through **FormSubmit** (free, unlimited submissions) to
 **Richard's Gmail** (the address FormSubmit was activated with). Subject lines tell them apart: **"New Quote
-Request"** and **"New Driver Application"**.
+Request"** and **"New Driver Application"**, followed by the details so each
+email stands on its own in Gmail, e.g. "New Quote Request: Tomball, TX →
+Corpus Christi, TX — Acme Steel" (company, or the contact's name if blank) and
+"New Driver Application: John Smith — Flatbed Driver (CDL)". If the page's
+script doesn't run, the plain "New Quote Request — RichieRich Website" subject
+is used.
 
 **Required boxes:** the quote form needs pickup, delivery, contact name,
 phone and email (marked with a gold *); everything else is optional. If one is

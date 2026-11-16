@@ -231,11 +231,35 @@ document.querySelectorAll('form[data-fs]').forEach(form => {
       inp.files = dt.files;
       form.appendChild(inp);
     });
+    setSubject(form);
     const next = form.querySelector('[data-next]');
     if (next && /^https?:$/.test(location.protocol)) next.value = location.origin + location.pathname + '?sent=' + next.dataset.next;
     HTMLFormElement.prototype.submit.call(form);
   });
 });
+
+// Each email gets its own subject (lane + company, or name + position) so Gmail
+// doesn't thread them together. The fixed subject in the HTML stays as the
+// fallback, and "New Quote Request" / "New Driver Application" stay first.
+function setSubject(form) {
+  const subj = form.querySelector('input[name="_subject"]');
+  if (!subj) return;
+  const base = subj.dataset.base || (subj.dataset.base = subj.value);
+  const val = n => {
+    const el = form.elements[n];
+    return el && el.value ? el.value.replace(/\s+/g, ' ').trim().slice(0, 60) : '';
+  };
+  const head = base.split(' — ')[0];
+  let detail = '';
+  if (head === 'New Quote Request') {
+    const lane = [val('Pickup Location'), val('Delivery Location')].filter(Boolean).join(' → ');
+    detail = [lane, val('Company') || val('Contact Name')].filter(Boolean).join(' — ');
+  } else if (head === 'New Driver Application') {
+    const name = [val('First Name'), val('Last Name')].filter(Boolean).join(' ');
+    detail = [name, val('Position')].filter(Boolean).join(' — ');
+  }
+  subj.value = detail ? head + ': ' + detail : base;
+}
 
 // Phone numbers format themselves as you type: (555) 000-0000
 function formatPhone(value) {

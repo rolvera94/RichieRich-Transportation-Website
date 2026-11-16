@@ -292,6 +292,8 @@ a { color: inherit; }
 .drop-ui svg { display: block; width: 30px; height: 30px; color: var(--gold); margin: 0 auto .5rem; }
 .drop-ui p { font-size: .92rem; color: var(--cream); }
 .drop-ui u { color: var(--gold); text-underline-offset: 3px; }
+.drop-touch { display: none; }
+@media (hover: none) { .drop-mouse { display: none; } .drop-touch { display: block; } }
 .drop-ui small { display: block; margin-top: .3rem; font-size: .76rem; color: rgba(242,237,216,.5); }
 .drop-list { list-style: none; display: grid; gap: .5rem; margin-top: .6rem; }
 .drop-list:empty { display: none; }
@@ -682,7 +684,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
             <label for="q-files">Photos or documents <span class="opt">(optional)</span></label>
             <div class="drop" data-drop data-max-files="5">
               <input id="q-files" class="drop-input" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.heic,.heif,.pdf,.doc,.docx,.xls,.xlsx,.csv" />
-              <div class="drop-ui"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7 9l5-5 5 5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><p><b>Drag files here</b> or <u>browse</u></p><small>Load photos, rate sheets, drawings. Up to 5 files, 10 MB total.</small></div>
+              <div class="drop-ui"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7 9l5-5 5 5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><p class="drop-mouse"><b>Drag files here</b> or <u>browse</u></p><p class="drop-touch"><b>Tap to add photos or files</b></p><small>Load photos, rate sheets, drawings. Up to 5 files, 10 MB total.</small></div>
             </div>
             <ul class="drop-list" aria-live="polite"></ul>
             <p class="drop-err" role="alert" hidden></p>
@@ -815,7 +817,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
             <label for="a-files">Résumé <span class="opt">(optional)</span></label>
             <div class="drop" data-drop data-max-files="2">
               <input id="a-files" class="drop-input" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.heic,.heif,.pdf,.doc,.docx" />
-              <div class="drop-ui"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7 9l5-5 5 5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><p><b>Drag files here</b> or <u>browse</u></p><small>PDF, Word, or a photo of it. Up to 2 files, 10 MB total.</small></div>
+              <div class="drop-ui"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7 9l5-5 5 5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><p class="drop-mouse"><b>Drag files here</b> or <u>browse</u></p><p class="drop-touch"><b>Tap to add photos or files</b></p><small>PDF, Word, or a photo of it. Up to 2 files, 10 MB total.</small></div>
             </div>
             <ul class="drop-list" aria-live="polite"></ul>
             <p class="drop-err" role="alert" hidden></p>

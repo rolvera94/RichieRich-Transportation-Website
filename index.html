@@ -257,6 +257,12 @@ main:focus { outline: none; }
 .tx-map.on .tx-counties { opacity: 1; }
 .tx-map.on .pin { opacity: 1; transform: none; }
 .tx-label { font: 700 12px 'Montserrat', sans-serif; letter-spacing: .16em; fill: var(--cream); }
+/* The label is in map units, so it shrinks with the map: enlarge it on narrow maps (~11-12px on screen).
+   On phones it sits left of the pin so the bigger word is not cut off at the map's right edge. */
+@media (min-width: 901px) and (max-width: 1000px) { .tx-label { font-size: 14px; } }
+@media (max-width: 600px) { .tx-label { font-size: 16px; letter-spacing: .1em; text-anchor: end; transform: translateX(-30px); } }
+@media (max-width: 480px) { .tx-label { font-size: 20px; } }
+@media (max-width: 360px) { .tx-label { font-size: 23px; } }
 .req-label { margin: 1.8rem 0 .8rem; font-size: .7rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
 .careers .checks { font-size: .95rem; margin-bottom: 2rem; }
 .careers .btns { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }

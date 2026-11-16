@@ -12,6 +12,11 @@ Both forms are sent through **FormSubmit** (free, unlimited submissions) to
 **Richard's Gmail** (the address FormSubmit was activated with). Subject lines tell them apart: **"New Quote
 Request"** and **"New Driver Application"**.
 
+**Required boxes:** the quote form needs pickup, delivery, contact name,
+phone and email (marked with a gold *); everything else is optional. If one is
+missing, a plain message shows under that box. The messages are the
+`data-msg` text on each box in `index.html`.
+
 **Attachments:** visitors can drag in, or tap to choose, **load photos and
 documents** on the quote form and a **résumé** on the job application. The
 limit is 10 MB total per submission. Phone photos are shrunk automatically so

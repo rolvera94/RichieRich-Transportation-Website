@@ -275,7 +275,11 @@ a { color: inherit; }
 .form-ok { margin-top: 1.2rem; padding: .9rem 1.1rem; border: 1px solid rgba(200,168,75,.5); background: rgba(200,168,75,.1); color: var(--gold2); font-weight: 600; font-size: .92rem; }
 .form-ok:focus { outline: none; }
 [hidden] { display: none !important; }
-.opt { color: rgba(242,237,216,.42); text-transform: none; letter-spacing: 0; font-weight: 500; }
+.opt { color: rgba(242,237,216,.62); text-transform: none; letter-spacing: 0; font-weight: 500; }
+.req { color: var(--gold); font-weight: 800; }
+.req-note { margin: 0 0 1rem; font-size: .8rem; color: rgba(242,237,216,.62); }
+.f-err { margin-top: .4rem; font-size: .84rem; color: #F2A48C; }
+.field [aria-invalid="true"] { border-color: #F2A48C; }
 .drop { position: relative; border: 1.5px dashed rgba(200,168,75,.45); background: rgba(255,255,255,.03); padding: 1.4rem 1rem; text-align: center; transition: border-color .2s, background .2s; }
 .drop.over, .drop:focus-within { border-color: var(--gold); background: rgba(200,168,75,.08); }
 .drop-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
@@ -619,9 +623,10 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_next" value="https://richierichtransportation.com/?sent=quote#quote" data-next="quote#quote" />
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none !important;" aria-hidden="true" />
+        <p class="req-note"><span class="req" aria-hidden="true">*</span> Required. Everything else helps us quote faster but is optional.</p>
         <div class="fgrid">
-          <div class="field"><label for="q-pick">Pickup location</label><input id="q-pick" type="text" name="Pickup Location" placeholder="City, TX" /></div>
-          <div class="field"><label for="q-drop">Delivery location</label><input id="q-drop" type="text" name="Delivery Location" placeholder="City, TX" /></div>
+          <div class="field"><label for="q-pick">Pickup location <span class="req" aria-hidden="true">*</span></label><input id="q-pick" type="text" name="Pickup Location" placeholder="City, TX" required data-msg="Add the pickup city so we can quote the lane." /></div>
+          <div class="field"><label for="q-drop">Delivery location <span class="req" aria-hidden="true">*</span></label><input id="q-drop" type="text" name="Delivery Location" placeholder="City, TX" required data-msg="Add the delivery city so we can quote the lane." /></div>
           <div class="field"><label for="q-svc">Service</label>
             <select id="q-svc" name="Service Needed">
               <option value="">Select a service…</option>
@@ -634,10 +639,10 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
           </div>
           <div class="field"><label for="q-date">Preferred date</label><input id="q-date" type="date" name="Preferred Date" /></div>
           <div class="field full"><label for="q-freight">Freight type</label><input id="q-freight" type="text" name="Freight Type" placeholder="Steel coils, lumber, machinery, pipe…" /></div>
-          <div class="field"><label for="q-co">Company</label><input id="q-co" type="text" name="Company" placeholder="Company name (optional)" /></div>
-          <div class="field"><label for="q-name">Contact name</label><input id="q-name" type="text" name="Contact Name" placeholder="Your name" required /></div>
-          <div class="field"><label for="q-phone">Phone</label><input id="q-phone" type="tel" name="Phone" placeholder="(555) 000-0000" inputmode="tel" autocomplete="tel" /></div>
-          <div class="field"><label for="q-email">Email</label><input id="q-email" type="email" name="email" placeholder="you@company.com" required /></div>
+          <div class="field"><label for="q-co">Company <span class="opt">(optional)</span></label><input id="q-co" type="text" name="Company" placeholder="Company name" /></div>
+          <div class="field"><label for="q-name">Contact name <span class="req" aria-hidden="true">*</span></label><input id="q-name" type="text" name="Contact Name" placeholder="Your name" required data-msg="Add your name so we know who to ask for." /></div>
+          <div class="field"><label for="q-phone">Phone <span class="req" aria-hidden="true">*</span></label><input id="q-phone" type="tel" name="Phone" placeholder="(555) 000-0000" inputmode="tel" autocomplete="tel" required pattern="\D*(\d\D*){10,11}" data-msg="Add a phone number so Richard can call you back." data-msg-bad="Enter the full 10-digit phone number, like (281) 468-2201." /></div>
+          <div class="field"><label for="q-email">Email <span class="req" aria-hidden="true">*</span></label><input id="q-email" type="email" name="email" placeholder="you@company.com" required data-msg="Add your email so we can send the quote." data-msg-bad="That email looks incomplete. It should look like name@company.com." /></div>
           <div class="field full"><label for="q-details">Tell us about the load</label><textarea id="q-details" name="Load Details" placeholder="Weight, dimensions, pieces, tarps, pickup window…"></textarea></div>
           <div class="field full">
             <label for="q-files">Photos or documents <span class="opt">(optional)</span></label>

@@ -175,6 +175,29 @@ function setupDrop(field) {
   return state;
 }
 
+// Missing or half-typed answers get a plain message under the box (fields with data-msg).
+document.querySelectorAll('form[data-fs] [data-msg]').forEach(inp => {
+  const field = inp.closest('.field');
+  const err = document.createElement('p');
+  err.className = 'f-err';
+  err.id = inp.id + '-err';
+  err.hidden = true;
+  field.appendChild(err);
+  const clear = () => { err.hidden = true; inp.removeAttribute('aria-invalid'); inp.removeAttribute('aria-describedby'); };
+  inp.addEventListener('invalid', e => {
+    e.preventDefault();
+    err.textContent = inp.validity.valueMissing ? inp.dataset.msg : (inp.dataset.msgBad || inp.dataset.msg);
+    err.hidden = false;
+    inp.setAttribute('aria-invalid', 'true');
+    inp.setAttribute('aria-describedby', err.id);
+    // Take the person to the first box that needs fixing.
+    const first = inp.form.querySelector(':invalid');
+    if (first === inp) { inp.focus({ preventScroll: true }); inp.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  });
+  inp.addEventListener('input', () => { if (!err.hidden && inp.validity.valid) clear(); });
+  inp.addEventListener('change', () => { if (!err.hidden && inp.validity.valid) clear(); });
+});
+
 // A file dropped beside a box shouldn't open in the browser tab.
 ['dragover', 'drop'].forEach(t => window.addEventListener(t, e => e.preventDefault()));
 

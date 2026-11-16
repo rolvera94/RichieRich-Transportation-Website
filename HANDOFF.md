@@ -73,8 +73,8 @@ Search the file for the current text and type over it:
 | Phone number          | `281.468.2201` (3 visible spots + links) |
 | Email shown on site   | `richierichtransportationllc@gmail.com`  |
 | Availability wording  | `Scheduling Available 7 Days a Week`     |
-| USDOT number          | `4024817`                                |
-| TXDMV registration    | `009730224C`                             |
+| USDOT number          | `4024817` (2 spots + the end of both FMCSA SAFER lookup links) |
+| TXDMV registration    | `009730224C` (footer + "Carrier credentials" in the contact panel) |
 | Coverage wording      | `Moving freight across Texas`            |
 
 The copyright year updates itself every year.

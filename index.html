@@ -297,7 +297,13 @@ a { color: inherit; }
 .drop-list button { background: none; border: 1px solid transparent; color: rgba(242,237,216,.6); cursor: pointer; font-size: 1.15rem; line-height: 1; width: 44px; height: 44px; flex-shrink: 0; }
 .drop-list button:hover, .drop-list button:focus-visible { color: var(--gold); border-color: var(--line); }
 .drop-err { margin-top: .5rem; font-size: .84rem; color: #F2A48C; }
-.ft-creds { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
+.ft-creds { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.4rem; }
+.ft-creds a, .talk .creds a { color: var(--cream); text-decoration: underline; text-decoration-color: rgba(200,168,75,.6); text-underline-offset: 3px; }
+.ft-creds a:hover, .talk .creds a:hover { color: var(--gold); }
+.ft-creds a { display: inline-block; padding-block: .3rem; }
+.talk .creds { margin-top: .6rem; font-weight: 600; color: var(--cream); font-variant-numeric: tabular-nums; }
+.talk .creds span { display: inline-block; white-space: nowrap; }
+.talk .creds a { display: inline-block; padding-block: .3rem; }
 .talk { border: 1px solid var(--line); background: rgba(255,255,255,.03); padding: clamp(1.6rem, 3vw, 2.2rem); position: sticky; top: calc(var(--hdr) + 20px); }
 .talk .lbl { font-size: .7rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,237,216,.6); }
 .talk .phone { display: inline-flex; align-items: center; gap: .7rem; max-width: 100%; margin: .7rem 0 .4rem; font-family: 'Archivo', sans-serif; font-stretch: 112%; font-weight: 850; font-size: clamp(1.6rem, 2.6vw, 2.1rem); color: var(--gold); text-decoration: none; }
@@ -320,7 +326,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
 .ft-contact { text-align: right; font-size: .82rem; line-height: 1.8; }
 .ft-contact a { display: inline-block; padding-block: .3rem; text-decoration: none; color: var(--cream); font-weight: 700; }
 .ft-contact a:hover { color: var(--gold); }
-.ft-bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: .6rem 2rem; justify-content: space-between; font-size: .74rem; color: rgba(242,237,216,.45); }
+.ft-bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: .6rem 2rem; justify-content: space-between; align-items: center; font-size: .8rem; color: var(--muted); }
 
 /* ============ APPLY DIALOG ============ */
 .apply { --apply-pad: clamp(12px, 4vw, 1.6rem); width: min(760px, calc(100% - 24px)); max-height: calc(100dvh - 24px); margin: auto; border: 1px solid var(--line); background: var(--n8); color: var(--cream); padding: 0; }
@@ -672,6 +678,9 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
       <p class="avail">Scheduling Available 7&nbsp;Days a&nbsp;Week</p>
       <p>We respond to all inquiries and coordinate pickup and delivery times based on your transportation needs.</p>
       <p class="avail-cta">Contact us to schedule your haul.</p>
+      <hr />
+      <p class="lbl">Carrier credentials</p>
+      <p class="creds"><span><a href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&amp;query_type=queryCarrierSnapshot&amp;query_param=USDOT&amp;query_string=4024817" target="_blank" rel="noopener" aria-label="USDOT 4024817 — look up on FMCSA SAFER (opens in a new tab)">USDOT 4024817</a></span> · <span>TXDMV 009730224C</span></p>
     </aside>
   </div>
 </section>
@@ -698,7 +707,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
     </div>
     <div class="ft-bottom">
       <div>© <span id="year">2026</span> RichieRich Transportation LLC. All rights reserved.</div>
-      <div class="ft-creds"><span>USDOT 4024817</span><span>TXDMV 009730224C</span></div>
+      <div class="ft-creds"><span><a href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&amp;query_type=queryCarrierSnapshot&amp;query_param=USDOT&amp;query_string=4024817" target="_blank" rel="noopener" aria-label="USDOT 4024817 — look up on FMCSA SAFER (opens in a new tab)">USDOT 4024817</a></span><span>TXDMV 009730224C</span></div>
     </div>
   </div>
 </footer>

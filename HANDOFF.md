@@ -77,6 +77,10 @@ Search the file for the current text and type over it:
 | TXDMV registration    | `009730224C` (footer + "Carrier credentials" in the contact panel) |
 | Coverage wording      | `Moving freight across Texas`            |
 
+The visible email text is written `richierich<wbr>transportation<wbr>llc<wbr>@gmail.com`
+(the `<wbr>` marks let phones wrap it between words, never inside `.com`);
+change it right next to each `mailto:` link you find.
+
 The copyright year updates itself every year.
 
 ---

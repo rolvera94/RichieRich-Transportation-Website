@@ -394,8 +394,8 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
   .trust li:nth-child(n+3) { border-top: 1px solid var(--line); }
   .diff { align-items: flex-end; min-height: 0; }
   .diff-media { inset: 0; }
-  .diff-media img:first-child { display: none; }
-  .diff-media img:last-child { margin-left: 0; -webkit-mask-image: none; mask-image: none; object-position: 62% 30%; }
+  .diff-media img:last-child { display: none; } /* phones: blue truck here, red one in Fleet (S16) */
+  .diff-media img:first-child { object-position: 30% 52%; }
   .diff::before { background: linear-gradient(180deg, rgba(10,22,40,.55) 0%, rgba(10,22,40,.25) 30%, rgba(10,22,40,.88) 58%, var(--n9) 78%); }
   .diff-copy { padding-top: 18rem; }
   .fleet-grid { grid-template-columns: 1fr; }

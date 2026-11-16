@@ -681,10 +681,10 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
           </div>
           <div class="field"><label for="q-date">Preferred date</label><input id="q-date" type="date" name="Preferred Date" /></div>
           <div class="field full"><label for="q-freight">Freight type</label><input id="q-freight" type="text" name="Freight Type" placeholder="Steel coils, lumber, machinery, pipe…" /></div>
-          <div class="field"><label for="q-co">Company <span class="opt">(optional)</span></label><input id="q-co" type="text" name="Company" placeholder="Company name" /></div>
-          <div class="field"><label for="q-name">Contact name <span class="req" aria-hidden="true">*</span></label><input id="q-name" type="text" name="Contact Name" placeholder="Your name" required data-msg="Add your name so we know who to ask for." /></div>
+          <div class="field"><label for="q-co">Company <span class="opt">(optional)</span></label><input id="q-co" type="text" name="Company" autocomplete="organization" placeholder="Company name" /></div>
+          <div class="field"><label for="q-name">Contact name <span class="req" aria-hidden="true">*</span></label><input id="q-name" type="text" name="Contact Name" autocomplete="name" placeholder="Your name" required data-msg="Add your name so we know who to ask for." /></div>
           <div class="field"><label for="q-phone">Phone <span class="req" aria-hidden="true">*</span></label><input id="q-phone" type="tel" name="Phone" placeholder="(555) 000-0000" inputmode="tel" autocomplete="tel" required pattern="\D*(\d\D*){10,11}" data-msg="Add a phone number so Richard can call you back." data-msg-bad="Enter the full 10-digit phone number, like (281) 468-2201." /></div>
-          <div class="field"><label for="q-email">Email <span class="req" aria-hidden="true">*</span></label><input id="q-email" type="email" name="email" placeholder="you@company.com" required data-msg="Add your email so we can send the quote." data-msg-bad="That email looks incomplete. It should look like name@company.com." /></div>
+          <div class="field"><label for="q-email">Email <span class="req" aria-hidden="true">*</span></label><input id="q-email" type="email" name="email" autocomplete="email" placeholder="you@company.com" required data-msg="Add your email so we can send the quote." data-msg-bad="That email looks incomplete. It should look like name@company.com." /></div>
           <div class="field full"><label for="q-details">Tell us about the load</label><textarea id="q-details" name="Load Details" placeholder="Weight, dimensions, pieces, tarps, pickup window…"></textarea></div>
           <div class="field full">
             <label for="q-files">Photos or documents <span class="opt">(optional)</span></label>
@@ -765,10 +765,10 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
         <input type="hidden" name="_next" value="https://richierichtransportation.com/?sent=apply#careers" data-next="apply#careers" />
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none !important;" aria-hidden="true" />
     <div class="fgrid">
-      <div class="field"><label for="a-first">First name</label><input id="a-first" type="text" name="First Name" placeholder="John" required /></div>
-      <div class="field"><label for="a-last">Last name</label><input id="a-last" type="text" name="Last Name" placeholder="Smith" required /></div>
+      <div class="field"><label for="a-first">First name</label><input id="a-first" type="text" name="First Name" autocomplete="given-name" placeholder="John" required /></div>
+      <div class="field"><label for="a-last">Last name</label><input id="a-last" type="text" name="Last Name" autocomplete="family-name" placeholder="Smith" required /></div>
       <div class="field"><label for="a-phone">Phone</label><input id="a-phone" type="tel" name="Phone" placeholder="(555) 000-0000" inputmode="tel" autocomplete="tel" required /></div>
-      <div class="field"><label for="a-email">Email</label><input id="a-email" type="email" name="email" placeholder="you@example.com" required /></div>
+      <div class="field"><label for="a-email">Email</label><input id="a-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required /></div>
       <div class="field"><label for="a-pos">Position</label>
         <select id="a-pos" name="Position" required>
           <option value="">Select a position…</option>

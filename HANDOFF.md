@@ -70,7 +70,7 @@ Search the file for the current text and type over it:
 
 | To change...          | Search for...                            |
 |-----------------------|------------------------------------------|
-| Phone number          | `281.468.2201` (3 visible spots + links) |
+| Phone number          | `281.468.2201` (4 visible spots + links) |
 | Email shown on site   | `richierichtransportationllc@gmail.com`  |
 | Availability wording  | `Scheduling Available 7 Days a Week`     |
 | USDOT number          | `4024817` (2 spots + the end of both FMCSA SAFER lookup links) |

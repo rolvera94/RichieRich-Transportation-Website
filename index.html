@@ -111,6 +111,11 @@ a { color: inherit; }
 .nav ul a { display: inline-block; padding-block: .95rem; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: rgba(242,237,216,.86); transition: color .2s; }
 .nav ul a:hover { color: var(--gold); }
 .nav .btn { padding: .75rem 1.1rem; font-size: .72rem; }
+.hdr-call, .nav-call { display: none; }
+.hdr-call { flex-shrink: 0; margin-left: auto; margin-right: -.5rem; padding: .6rem; color: var(--gold); line-height: 0; }
+.hdr-call svg { width: 24px; height: 24px; }
+.hdr-call:hover { color: var(--gold2); }
+.nav-call svg.ph { width: 18px; height: 18px; flex-shrink: 0; }
 .menu-btn { display: none; background: none; border: 0; cursor: pointer; padding: .5rem; margin-right: -.5rem; }
 .menu-btn span { display: block; width: 26px; height: 2px; background: var(--cream); margin: 6px 0; transition: transform .25s, opacity .2s; }
 .hdr.open .menu-btn span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -352,7 +357,9 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1120px) {
   .menu-btn { display: block; }
+  .hdr-call { display: block; }
   .nav { display: none; }
+  .hdr.open .nav .nav-call { display: inline-flex; margin-top: -.5rem; }
   .hdr.open .nav { display: flex; flex-direction: column; align-items: stretch; gap: 1.5rem; position: fixed; top: var(--hdr); left: 0; right: 0; background: var(--n9); border-bottom: 1px solid var(--line); padding: 1.5rem clamp(16px, 4vw, 40px) 2rem; max-height: calc(100dvh - var(--hdr)); overflow-y: auto; }
   .hdr.open .nav ul { flex-direction: column; gap: 0; }
   .hdr.open .nav ul a { display: block; padding: .95rem 0; border-bottom: 1px solid var(--line); font-size: .85rem; }
@@ -435,6 +442,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
     <a href="#home" class="logo" aria-label="RichieRich Transportation LLC — home">
       <img src="images/logo-wordmark.png" alt="RichieRich Transportation LLC" width="1000" height="119" />
     </a>
+    <a href="tel:+12814682201" class="hdr-call" aria-label="Call Richard at 281.468.2201"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></a>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
       <span></span><span></span><span></span>
     </button>
@@ -448,6 +456,7 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
         <li><a href="#careers">Careers</a></li>
       </ul>
       <a href="#quote" class="btn btn-gold">Get a Quote <svg class="arr"><use href="#arr"/></svg></a>
+      <a href="tel:+12814682201" class="btn btn-line nav-call"><svg class="ph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call 281.468.2201</a>
     </nav>
   </div>
 </header>

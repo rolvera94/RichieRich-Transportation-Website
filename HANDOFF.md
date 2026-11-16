@@ -92,7 +92,8 @@ The copyright year updates itself every year.
   the top image, the four service cards and the Houston skyline. One is still
   waiting: **"03 Across Texas"** (`service-regional.jpg`) uses an early
   sunset-road image. See **`IMAGE-PROMPTS.md`** for its prompt. Send the new
-  image to Claude and it'll be compressed and swapped in.
+  image to Claude and it'll be compressed and swapped in (and its alt text in
+  `index.html` updated to say what the new picture shows).
 
 ---
 

@@ -1,6 +1,8 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Reveal-on-scroll (also triggers the timeline and the Texas map) */
+/* Take over from the CSS safety net only if it hasn't fired yet (it fires at 4 s) */
+if (performance.now() < 3500) document.documentElement.classList.add('rv-on');
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;

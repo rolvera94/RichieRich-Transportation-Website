@@ -353,6 +353,18 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
 .js .rv[data-d="2"] { transition-delay: .2s; }
 .js .rv[data-d="3"] { transition-delay: .3s; }
 .js .rv[data-d="4"] { transition-delay: .4s; }
+/* Safety net: if site.js is slow, blocked or fails, show everything after 4 s.
+   site.js adds .rv-on (cancels this) when it starts in time. */
+.js .rv { animation: rv-show 0s 4s forwards; }
+.js.rv-on .rv { animation: none; }
+@keyframes rv-show { to { opacity: 1; transform: none; } }
+/* Hero: pure-CSS fade-up, so the headline and button never wait for site.js */
+.hero-in { animation: hero-in .9s cubic-bezier(.2,.7,.2,1) both; }
+.hero-in[data-d="1"] { animation-delay: .1s; }
+.hero-in[data-d="2"] { animation-delay: .2s; }
+.hero-in[data-d="3"] { animation-delay: .3s; }
+.hero-in[data-d="4"] { animation-delay: .4s; }
+@keyframes hero-in { from { opacity: 0; transform: translateY(24px); } }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1120px) {
@@ -473,9 +485,9 @@ footer { background: #050B15; border-top: 1px solid var(--line); padding: 3rem 0
 <section class="hero" id="home">
   <div class="hero-media"><img id="heroImg" src="images/hero.jpg" alt="Flatbed truck loaded with steel" fetchpriority="high" /></div>
   <div class="wrap hero-inner">
-    <h1 class="display"><span class="l1 rv" data-d="1">Freight.</span><span class="l2 rv" data-d="2">Without the runaround.</span></h1>
-    <p class="lede rv" data-d="3">Flatbed freight across Texas, handled by the owner from pickup to delivery. Clear answers, secured loads, and no one passing the buck.</p>
-    <div class="rv" data-d="4">
+    <h1 class="display"><span class="l1 hero-in" data-d="1">Freight.</span><span class="l2 hero-in" data-d="2">Without the runaround.</span></h1>
+    <p class="lede hero-in" data-d="3">Flatbed freight across Texas, handled by the owner from pickup to delivery. Clear answers, secured loads, and no one passing the buck.</p>
+    <div class="hero-in" data-d="4">
       <a href="#quote" class="btn btn-gold nudge">Move Your Freight <svg class="arr"><use href="#arr"/></svg></a>
     </div>
   </div>

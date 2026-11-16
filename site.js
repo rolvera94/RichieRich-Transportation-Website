@@ -272,8 +272,30 @@ window.addEventListener('pageshow', e => {
   const sent = new URLSearchParams(location.search).get('sent');
   if (!sent) return;
   const el = document.getElementById(sent === 'apply' ? 'apply-done' : 'form-success');
-  if (el) el.hidden = false;
   history.replaceState(null, '', location.pathname + location.hash);
+  if (!el) return;
+  el.hidden = false;
+  el.tabIndex = -1;
+  el.setAttribute('role', 'status');
+  // The message sits under the form, so bring it to the middle of the screen
+  // (again once images have loaded and moved things), unless the visitor
+  // has started scrolling on their own.
+  let moved = false;
+  const stop = () => { moved = true; };
+  ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, stop, { once: true, passive: true }));
+  const show = () => {
+    if (moved) return;
+    el.closest('.rv')?.classList.add('in');
+    el.scrollIntoView({ block: 'center', behavior: 'instant' });
+    el.focus({ preventScroll: true });
+  };
+  show();
+  // Late images and the browser's own jump to #quote/#careers can move the
+  // page after this runs, so keep it centred for the first few seconds.
+  const ro = new ResizeObserver(() => requestAnimationFrame(show));
+  ro.observe(document.body);
+  [100, 400, 1000, 2000].forEach(t => setTimeout(show, t));
+  setTimeout(() => ro.disconnect(), 3000);
 })();
 
 /* Auto-updating copyright year */

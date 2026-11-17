@@ -10,7 +10,17 @@ into day-to-day. This guide covers the few things you need to know.
 
 Both forms are sent through **FormSubmit** (free, unlimited submissions) to
 **Richard's Gmail** (the address FormSubmit was activated with). Subject lines tell them apart: **"New Quote
-Request"** and **"New Driver Application"**.
+Request"** and **"New Driver Application"**, followed by the details so each
+email stands on its own in Gmail, e.g. "New Quote Request: Tomball, TX →
+Corpus Christi, TX — Acme Steel" (company, or the contact's name if blank) and
+"New Driver Application: John Smith — Flatbed Driver (CDL)". If the page's
+script doesn't run, the plain "New Quote Request — RichieRich Website" subject
+is used.
+
+**Required boxes:** the quote form needs pickup, delivery, contact name,
+phone and email (marked with a gold *); everything else is optional. If one is
+missing, a plain message shows under that box. The messages are the
+`data-msg` text on each box in `index.html`.
 
 **Attachments:** visitors can drag in, or tap to choose, **load photos and
 documents** on the quote form and a **résumé** on the job application. The
@@ -60,12 +70,16 @@ Search the file for the current text and type over it:
 
 | To change...          | Search for...                            |
 |-----------------------|------------------------------------------|
-| Phone number          | `281.468.2201` (3 visible spots + links) |
+| Phone number          | `281.468.2201` (4 visible spots + links) |
 | Email shown on site   | `richierichtransportationllc@gmail.com`  |
 | Availability wording  | `Scheduling Available 7 Days a Week`     |
-| USDOT number          | `4024817`                                |
-| TXDMV registration    | `009730224C`                             |
+| USDOT number          | `4024817` (2 spots + the end of both FMCSA SAFER lookup links) |
+| TXDMV registration    | `009730224C` (footer + "Carrier credentials" in the contact panel) |
 | Coverage wording      | `Moving freight across Texas`            |
+
+The visible email text is written `richierich<wbr>transportation<wbr>llc<wbr>@gmail.com`
+(the `<wbr>` marks let phones wrap it between words, never inside `.com`);
+change it right next to each `mailto:` link you find.
 
 The copyright year updates itself every year.
 
@@ -82,7 +96,8 @@ The copyright year updates itself every year.
   the top image, the four service cards and the Houston skyline. One is still
   waiting: **"03 Across Texas"** (`service-regional.jpg`) uses an early
   sunset-road image. See **`IMAGE-PROMPTS.md`** for its prompt. Send the new
-  image to Claude and it'll be compressed and swapped in.
+  image to Claude and it'll be compressed and swapped in (and its alt text in
+  `index.html` updated to say what the new picture shows).
 
 ---
 

@@ -1,6 +1,8 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Reveal-on-scroll (also triggers the timeline and the Texas map) */
+/* Take over from the CSS safety net only if it hasn't fired yet (it fires at 4 s) */
+if (performance.now() < 3500) document.documentElement.classList.add('rv-on');
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
@@ -175,6 +177,29 @@ function setupDrop(field) {
   return state;
 }
 
+// Missing or half-typed answers get a plain message under the box (fields with data-msg).
+document.querySelectorAll('form[data-fs] [data-msg]').forEach(inp => {
+  const field = inp.closest('.field');
+  const err = document.createElement('p');
+  err.className = 'f-err';
+  err.id = inp.id + '-err';
+  err.hidden = true;
+  field.appendChild(err);
+  const clear = () => { err.hidden = true; inp.removeAttribute('aria-invalid'); inp.removeAttribute('aria-describedby'); };
+  inp.addEventListener('invalid', e => {
+    e.preventDefault();
+    err.textContent = inp.validity.valueMissing ? inp.dataset.msg : (inp.dataset.msgBad || inp.dataset.msg);
+    err.hidden = false;
+    inp.setAttribute('aria-invalid', 'true');
+    inp.setAttribute('aria-describedby', err.id);
+    // Take the person to the first box that needs fixing.
+    const first = inp.form.querySelector(':invalid');
+    if (first === inp) { inp.focus({ preventScroll: true }); inp.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  });
+  inp.addEventListener('input', () => { if (!err.hidden && inp.validity.valid) clear(); });
+  inp.addEventListener('change', () => { if (!err.hidden && inp.validity.valid) clear(); });
+});
+
 // A file dropped beside a box shouldn't open in the browser tab.
 ['dragover', 'drop'].forEach(t => window.addEventListener(t, e => e.preventDefault()));
 
@@ -208,11 +233,35 @@ document.querySelectorAll('form[data-fs]').forEach(form => {
       inp.files = dt.files;
       form.appendChild(inp);
     });
+    setSubject(form);
     const next = form.querySelector('[data-next]');
     if (next && /^https?:$/.test(location.protocol)) next.value = location.origin + location.pathname + '?sent=' + next.dataset.next;
     HTMLFormElement.prototype.submit.call(form);
   });
 });
+
+// Each email gets its own subject (lane + company, or name + position) so Gmail
+// doesn't thread them together. The fixed subject in the HTML stays as the
+// fallback, and "New Quote Request" / "New Driver Application" stay first.
+function setSubject(form) {
+  const subj = form.querySelector('input[name="_subject"]');
+  if (!subj) return;
+  const base = subj.dataset.base || (subj.dataset.base = subj.value);
+  const val = n => {
+    const el = form.elements[n];
+    return el && el.value ? el.value.replace(/\s+/g, ' ').trim().slice(0, 60) : '';
+  };
+  const head = base.split(' — ')[0];
+  let detail = '';
+  if (head === 'New Quote Request') {
+    const lane = [val('Pickup Location'), val('Delivery Location')].filter(Boolean).join(' → ');
+    detail = [lane, val('Company') || val('Contact Name')].filter(Boolean).join(' — ');
+  } else if (head === 'New Driver Application') {
+    const name = [val('First Name'), val('Last Name')].filter(Boolean).join(' ');
+    detail = [name, val('Position')].filter(Boolean).join(' — ');
+  }
+  subj.value = detail ? head + ': ' + detail : base;
+}
 
 // Phone numbers format themselves as you type: (555) 000-0000
 function formatPhone(value) {
@@ -261,6 +310,26 @@ document.querySelectorAll('input[type="tel"]').forEach(inp => {
   });
 });
 
+// Preferred date: no days that already passed (the visitor's own today, not UTC).
+(function () {
+  const d = document.getElementById('q-date');
+  if (!d) return;
+  const today = () => {
+    const t = new Date();
+    return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+  };
+  const check = () => {
+    d.min = today(); // refreshed each time, so a page left open overnight stays right
+    d.setCustomValidity(d.value && d.value < d.min ? 'Please pick today or a later date.' : '');
+  };
+  check();
+  // Capture phase: re-check before the inline-message handler decides whether to clear it.
+  ['focus', 'input', 'change'].forEach(ev => d.addEventListener(ev, check, true));
+  // Re-check just before the browser validates the form (Enter in a field also "clicks" Send).
+  const send = d.form && d.form.querySelector('button[type="submit"]');
+  if (send) send.addEventListener('click', check);
+})();
+
 // Coming back from Back after sending: re-enable the buttons.
 window.addEventListener('pageshow', e => {
   if (!e.persisted) return;
@@ -272,8 +341,30 @@ window.addEventListener('pageshow', e => {
   const sent = new URLSearchParams(location.search).get('sent');
   if (!sent) return;
   const el = document.getElementById(sent === 'apply' ? 'apply-done' : 'form-success');
-  if (el) el.hidden = false;
   history.replaceState(null, '', location.pathname + location.hash);
+  if (!el) return;
+  el.hidden = false;
+  el.tabIndex = -1;
+  el.setAttribute('role', 'status');
+  // The message sits under the form, so bring it to the middle of the screen
+  // (again once images have loaded and moved things), unless the visitor
+  // has started scrolling on their own.
+  let moved = false;
+  const stop = () => { moved = true; };
+  ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, stop, { once: true, passive: true }));
+  const show = () => {
+    if (moved) return;
+    el.closest('.rv')?.classList.add('in');
+    el.scrollIntoView({ block: 'center', behavior: 'instant' });
+    el.focus({ preventScroll: true });
+  };
+  show();
+  // Late images and the browser's own jump to #quote/#careers can move the
+  // page after this runs, so keep it centred for the first few seconds.
+  const ro = new ResizeObserver(() => requestAnimationFrame(show));
+  ro.observe(document.body);
+  [100, 400, 1000, 2000].forEach(t => setTimeout(show, t));
+  setTimeout(() => ro.disconnect(), 3000);
 })();
 
 /* Auto-updating copyright year */
